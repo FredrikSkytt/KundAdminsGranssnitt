@@ -1,18 +1,42 @@
 ﻿@model KundAdminsGranssnitt.Models.VisningsSchemaModel
 
-<th><strong>Salonger</strong></th> <br />
-@foreach (var Salong in Model.Salong)
-{
-    <tr>
-        <td>@Salong.Namn</td> <br />
-    </tr>
-}
-<br />
-<th><strong>Filmer</strong></th><br />
-@foreach (var Titel in Model.Titel)
-{
-<tr>
-    <td>@Titel.Titel</td> <br />
-</tr>
-}
+<html>
+<head>
+  
+</head>
+
+
+<body>
+   
+    
+
+    <form action="/action_page.php">
+        <label for="Salonger">Välj en salong</label>
+        <select id="Salonger" name="Salonger">
+            @foreach (var Salong in Model.Salong)
+            {
+                <option value="@Salong.Namn">@Salong.Namn</option>
+            }
+        </select>
+
+        <select id="Filmer" name="Filmer">
+            @foreach (var Titel in Model.Titel)
+            {
+                <option value="@Titel.Titel">@Titel.Titel</option>
+            }
+        </select>
+        <input id="starttid" type="datetime-local" name="Datum" />
+        <input type="submit" >
+    </form>
+
+
+
+
+
+
+</body>
+
+
+
+</html>
 

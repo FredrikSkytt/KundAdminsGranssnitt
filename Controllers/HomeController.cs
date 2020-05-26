@@ -21,6 +21,8 @@ namespace KundAdminsGranssnitt.Controllers
             return View(Visning);
         }
 
+        
+
      
         public void SalongLista()
         {
