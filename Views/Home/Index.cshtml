@@ -1,0 +1,18 @@
+﻿@model KundAdminsGranssnitt.Models.VisningsSchemaModel
+
+<th><strong>Salonger</strong></th> <br />
+@foreach (var Salong in Model.Salong)
+{
+    <tr>
+        <td>@Salong.Namn</td> <br />
+    </tr>
+}
+<br />
+<th><strong>Filmer</strong></th><br />
+@foreach (var Titel in Model.Titel)
+{
+<tr>
+    <td>@Titel.Titel</td> <br />
+</tr>
+}
+
