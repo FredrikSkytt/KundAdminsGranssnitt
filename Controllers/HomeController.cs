@@ -23,10 +23,28 @@ namespace KundAdminsGranssnitt.Controllers
         [HttpPost]
         public ActionResult Index(VisningsSchemaModel visningsSchemaModel)
         {
-            
+            string titel = visningsSchemaModel.Titel;
+            string namn = visningsSchemaModel.Namn;
+            DateTime date = visningsSchemaModel.Datum;
+
+
+            //using (var client = new HttpClient())
+            //{
+            //    VisningsSchemaModel visnings = new VisningsSchemaModel { Titel = titel, Namn = namn, Datum = date };
+            //    client.BaseAddress = new Uri("http://193.10.202.72/BiljettService/visningsschema");
+            //    var response = client.PostAsJsonAsync("visningsschema", visnings).Result;
+            //    if (response.IsSuccessStatusCode)
+            //    {
+            //        Console.Write("Success");
+            //    }
+            //    else
+            //        Console.Write("Error");
+            //}
+
 
             return View();
         }
+
 
 
 

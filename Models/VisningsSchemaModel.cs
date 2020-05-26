@@ -13,5 +13,11 @@ namespace KundAdminsGranssnitt.Models
 
         public List<Salong> Salong { get; set; }
 
+        public string Titel { get; set; }
+
+        public string Namn { get; set; }
+
+        public DateTime Datum { get; set; }
+
     }
 }

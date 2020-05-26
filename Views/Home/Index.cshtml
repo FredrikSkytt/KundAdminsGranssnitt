@@ -1,24 +1,16 @@
 ﻿@model KundAdminsGranssnitt.Models.VisningsSchemaModel
 
-<th><strong>Salonger</strong></th>
-<br />
-@foreach (var Salong in Model.Salong)
-{
-    <tr>
-        <td>@Salong.Namn</td>
-        <br />
-    </tr>
-}
-<br />
-<th><strong>Filmer</strong></th>
-<br />
-@foreach (var Titel in Model.Film)
-{
-    <tr>
-        <td>@Titel.Titel</td>
-        <br />
-    </tr>
-}
+<head>
 
+</head>
+<body>
+    @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+    {
+        @Html.DropDownListFor(m => m.Titel, new SelectList(Model.Film, "Titel", "Titel"), "Select")
+        @Html.DropDownListFor(m => m.Namn, new SelectList(Model.Salong, "Namn", "Namn"), "Select")
+        <input id="starttid" type="datetime-local" name="Datum" />
+        <input type="submit" />
 
+    }
+</body>
 
