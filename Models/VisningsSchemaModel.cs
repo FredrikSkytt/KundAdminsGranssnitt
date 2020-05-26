@@ -9,7 +9,7 @@ namespace KundAdminsGranssnitt.Models
     {
      
 
-        public List<Film> Titel { get; set; }
+        public List<Film> Film { get; set; }
 
         public List<Salong> Salong { get; set; }
 

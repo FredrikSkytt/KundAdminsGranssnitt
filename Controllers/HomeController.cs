@@ -20,8 +20,16 @@ namespace KundAdminsGranssnitt.Controllers
                              
             return View(Visning);
         }
+        [HttpPost]
+        public ActionResult Index(VisningsSchemaModel visningsSchemaModel)
+        {
+            
 
-     
+            return View();
+        }
+
+
+
         public void SalongLista()
         {
             List<Salong> salongLista = new List<Salong>();
@@ -55,7 +63,7 @@ namespace KundAdminsGranssnitt.Controllers
                 filmLista = JsonConvert.DeserializeObject<List<Film>>(products);
             }
 
-            Visning.Titel = filmLista;
+            Visning.Film = filmLista;
         }
       
 
