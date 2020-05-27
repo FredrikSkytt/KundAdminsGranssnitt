@@ -6,27 +6,62 @@ using System.Net.Http.Headers;
 using System.Web;
 using System.Web.Mvc;
 using KundAdminsGranssnitt.Models;
+using Microsoft.Ajax.Utilities;
 using Newtonsoft.Json;
 
 namespace KundAdminsGranssnitt.Controllers
 {
     public class HomeController : Controller
-    {              
-        VisningsSchemaModel Visning = new VisningsSchemaModel();
+    {
+        VisningsSchema Visning = new VisningsSchema();
+        List<Film> filmLista = new List<Film>();
+        List<Salong> salongLista = new List<Salong>();
+        
+        
         public ActionResult Index()
         {
             SalongLista();
             FilmLista();
-                             
             return View(Visning);
         }
 
-        
+        public ActionResult Create()
+        {
+            SalongLista();
+            FilmLista();
+            var stringList = filmLista.ConvertAll(obj => obj.ToString());
 
-     
+            ViewBag.list = stringList;
+            
+            return View(Visning);
+        }
+
+        [HttpPost]
+        public ActionResult Create(VisningsSchema nyVisning) /*Källa till create-metoden. https://www.tutorialsteacher.com/webapi/consume-web-api-post-method-in-aspnet-mvc*/
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://193.10.202.72/BiljettService/VisningsSchema");
+                var postJob = client.PostAsJsonAsync<VisningsSchema>("VisningsSchema", nyVisning);
+                postJob.Wait();
+
+                var postReslut = postJob.Result;
+                if (postReslut.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("Index");
+                }
+
+                ModelState.AddModelError(string.Empty, "Server Error. Please contact administrator.");
+
+            }
+
+            return View(nyVisning);
+        }
+
+   
         public void SalongLista()
         {
-            List<Salong> salongLista = new List<Salong>();
+           
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri("http://193.10.202.71/Filmservice/salong");
             // Add an Accept header for JSON format.    
@@ -39,12 +74,13 @@ namespace KundAdminsGranssnitt.Controllers
                 salongLista = JsonConvert.DeserializeObject<List<Salong>>(products);
             }
 
-            Visning.Salong = salongLista;
+            Visning.SalongLista = salongLista;
+           
         }
         
         public void FilmLista()
         {
-            List<Film> filmLista = new List<Film>();
+            
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri("http://193.10.202.71/Filmservice/film");
             // Add an Accept header for JSON format.    
@@ -57,7 +93,8 @@ namespace KundAdminsGranssnitt.Controllers
                 filmLista = JsonConvert.DeserializeObject<List<Film>>(products);
             }
 
-            Visning.Titel = filmLista;
+            Visning.TitelLista = filmLista;
+            
         }
       
 
